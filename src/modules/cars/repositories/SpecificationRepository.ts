@@ -3,10 +3,24 @@ import { ISpecificationsRepository, ICreateSpecificationDTO } from "./ISpecifica
 
 
 class SpecificationsRepository implements ISpecificationsRepository {
-    private specifications: Specification[]
+    private specifications: Specification[];
+
+    constructor() {
+        this.specifications = [];
+    }
 
     create({ name, description }: ICreateSpecificationDTO): void {
-        throw new Error("Method not implemented.");
+        // irá chamar o construtor para criar criação do id 
+        const specification = new Specification();
+
+        // pega as informação que serão passadas para o objeto
+        Object.assign(specification, {
+            name,
+            description,
+            create_at: new Date(),
+        });
+
+        this.specifications.push(specification);
     }
 
 }
