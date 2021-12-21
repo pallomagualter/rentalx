@@ -13,18 +13,24 @@ class ImportCategoryUseCase {
 
     loadCategories(file: Express.Multer.File){
         const stream = fs.createReadStream(file.path);
-      const categories: IImportCategory[] = [];
+        const categories: IImportCategory[] = [];
 
-      const parseFile = csvParse();
-      stream.pipe(parseFile);
+        const parseFile = csvParse();
+
+        stream.pipe(parseFile);
 
         parseFile.on("data", async (line) => {
-            console.log(line);
+            const [ name, description ] = line;
+            categories.push({
+                name,
+                description,
+            });
         });
     }
 
     execute(file: Express.Multer.File): void {
-        
+        const categories = this.loadCategories(file);
+        console.log(categories)
     }
 
 }
