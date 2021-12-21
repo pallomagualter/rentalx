@@ -3,7 +3,6 @@ import fs from "fs";
 
 class ImportCategoryUseCase {
     execute(file: Express.Multer.File): void {
-        
         const stream = fs.createReadStream(file.path);
 
         const parseFile = csvParse();
@@ -13,7 +12,6 @@ class ImportCategoryUseCase {
         parseFile.on("data", async (line) => {
             console.log(line);
         });
-
     }
 
 }
