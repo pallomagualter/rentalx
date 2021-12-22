@@ -12,7 +12,7 @@ class ImportCategoryUseCase {
     constructor(private categoriesRepository: ICategoriesRepository) {}
 
     // toda responsabilidade de carregamento das categorias
-    loadCategories(file: Express.Multer.File) {
+    loadCategories(file: Express.Multer.File): IImportCategory {
         const stream = fs.createReadStream(file.path);
         const categories: IImportCategory[] = [];
 
@@ -28,6 +28,7 @@ class ImportCategoryUseCase {
                 description,
             });
         });
+        return categories;
     }
     
     execute(file: Express.Multer.File): void {
