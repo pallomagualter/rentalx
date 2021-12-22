@@ -1,36 +1,33 @@
 import csvParse from "csv-parse";
 import fs from "fs";
 
-import { ICategoriesRepository } from "../../repositories/ICategoriesRepository";
+//import { ICategoriesRepository } from "../../repositories/ICategoriesRepository";
 
-interface IImportCategory {
-    name: string;
-    description: string;
-}
+// interface IImportCategory {
+//     name: string;
+//     description: string;
+// }
 
 class ImportCategoryUseCase {
-    constructor(private categoriesRepository: ICategoriesRepository) {}
+    //constructor(private categoriesRepository: ICategoriesRepository) {}
 
-    loadCategories(file: Express.Multer.File){
+    // loadCategories(file: Express.Multer.File){
+        
+
+    //   
+    // }
+
+    execute(file: Express.Multer.File): void {
         const stream = fs.createReadStream(file.path);
-        const categories: IImportCategory[] = [];
+        //const categories: IImportCategory[] = [];
 
         const parseFile = csvParse();
 
         stream.pipe(parseFile);
-
+        //const categories = this.loadCategories(file);
         parseFile.on("data", async (line) => {
-            const [ name, description ] = line;
-            categories.push({
-                name,
-                description,
-            });
+            console.log(line);
         });
-    }
-
-    execute(file: Express.Multer.File): void {
-        const categories = this.loadCategories(file);
-        console.log(categories)
     }
 
 }
